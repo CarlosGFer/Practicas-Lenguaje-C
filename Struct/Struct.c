@@ -44,8 +44,6 @@ int main(){
 
     //p5 = p1; // ERRADO
 
-
-
     system("pause");
     return 0;
 }
