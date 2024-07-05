@@ -7,18 +7,18 @@ struct registro{
     char nombre[20]; // Campo tipo string de 20 caracteres
     int edad;        // Campo tipo número entero
     char sexo;       // Campo tipo caracter
-    float estatura;  // Campo tipo número con decimal
+    float estatura  // Campo tipo número con decimal
 //  float peso;
 //  char calle[20];
 //  int numero;
-//  int telefono;
+//  int telefono
 };  // IMPORTANTE !   La definición de un struct se debe terminar con punto y coma
 
 struct registro2{       // No se puede repetir el nombre de un struct
     char nombre[20]; // Se pueden repetir los nombres de los campos de otro struct
     int edad;
     char sexo;
-    float estatura;
+    float estatura
 };
 
 // Declaración del struct

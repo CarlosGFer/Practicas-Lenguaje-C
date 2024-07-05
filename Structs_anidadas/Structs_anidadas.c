@@ -7,7 +7,7 @@ struct persona{
     int edad;
     char sexo;
     char domicilio[60];
-    char telefono[20];
+    char telefono[20]
 };
 
 struct paciente{
@@ -15,14 +15,14 @@ struct paciente{
     char admision[8];
     int habitacion;
     int cama;
-    struct persona perpac[20];
+    struct persona perpac[20]
 };
 struct paciente pac[20];
 
 struct profesional{
     char especialidad[30];
     char residente;
-    struct persona perpro[20];
+    struct persona perpro[20]
 };
 struct profesional pro[20];
 

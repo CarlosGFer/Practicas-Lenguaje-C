@@ -6,7 +6,7 @@ struct {
     float volumen;  // En litros (4 bytes de memoria)
     int peso;       // En gramos (2 bytes de memoria)
     int largo;      // En centímetros (2 bytes de memoria)
-    int unidad;     // En unidades (2 bytes de memoria)
+    int unidad      // En unidades (2 bytes de memoria)
 } med;
 
 
@@ -28,7 +28,7 @@ union medida{
     float volumen;  // Solamente 4 bytes de memoria
     int peso;
     int largo;
-    int unidad;
+    int unidad
 };
 
 
