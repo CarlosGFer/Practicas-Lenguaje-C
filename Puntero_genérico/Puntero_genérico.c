@@ -35,6 +35,9 @@ int main(){
     ptr = &b;
     printf("Valor de la direccion de memoria que apunta ptr = %.4f\n\n", *(double*)ptr);
 
+    *(double*)ptr = 5.78;
+    printf("Valor de b = %.2f\n\n", b);
+
     printf("Direccion de memoria a la que apunta ptr = %d\n", ptr);
     ptr++;
     printf("Direccion de memoria a la que apunta ptr = %d\n", ptr);
