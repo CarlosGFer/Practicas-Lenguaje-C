@@ -5,7 +5,7 @@
 struct persona{
     char nombre[20];
     int edad;
-    char sexo
+    char sexo;
 } per;
 
 void campo_valor(int ed, char sx);
