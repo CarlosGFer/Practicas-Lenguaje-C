@@ -21,7 +21,7 @@ int excl_nomb(char *n, inicio *i); // Prototipo función excluir elemento por no
 int cons_pos(int c, inicio *i, struct persona *p);    // Prototipo función buscar por posición
 int cons_nomb(char *n, inicio *i, struct persona *p); // Prototipo función buscar por nombre de la persona
 void pres_lista(inicio *i);        // Prototipo función presentar lista completa
-void elim_lista(inicio *i);        // Prototipo función eliminar lista
+int elim_lista(inicio *i);         // Prototipo función eliminar lista
 
 
 
@@ -82,6 +82,7 @@ int main(){
                 if(retor == -1){
                     printf("\nSe produjo un error\n\n");
                     exit(1);
+
                 }else{
                     printf("\nLa lista tiene %d elementos\n\n", retor);
                 }
@@ -183,9 +184,11 @@ int main(){
                         if(retor == -1){
                             printf("\nSe produjo un error\n\n");
                             exit(1);
+
                         }else{
                             if(retor == 0){
                                 printf("\nLa posicion %d no es valida\n\n", posic);
+
                             }else{
                                 printf("\nPosicion %d =  Nombre: %s  ---  Edad: %d\n\n", posic, datPer.nombre, datPer.edad);
                             }
@@ -235,9 +238,11 @@ int main(){
                 if(retor == -1){
                     printf("\nSe produjo un error\n\n");
                     exit(1);
+
                 }else{
                     if(retor == 0){
                         printf("\nLa lista esta vacia\n\n");
+
                     }else{
                         printf("\n");
                         pres_lista(lista); // LLama a la función presentar lista completa
@@ -249,8 +254,14 @@ int main(){
 
             // Eliminar lista (Liberar memoria asignada)
             case 8:
-                elim_lista(lista);         // LLama a la función eliminar lista
-                printf("\nLista eliminada\n\n");
+                retor = elim_lista(lista); // LLama a la función eliminar lista
+                if(retor == 0){
+                    printf("\nSe produjo un error\n\n");
+                    exit(1);
+
+                }else{
+                    printf("\nLista eliminada\n\n");
+                }
                 salir = 1;                 // Indica salir del programa
                 break;
 
@@ -262,7 +273,6 @@ int main(){
                 break;
         }
     }
-
 
     printf("\nFin del programa\n\n\n");
     return 0;
@@ -331,7 +341,7 @@ int inse_lista(inicio *i, struct persona p){
             return 0;                       // Retorna el código de memoria insuficiente
 
         }else{
-
+/*
 // Inserir en el inicio de la lista
             e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
             e->prox = *i;                   // Atribuye al puntero prox la dirección a la que apunta inicio
@@ -340,7 +350,7 @@ int inse_lista(inicio *i, struct persona p){
                 (*i)->ant = e;              // Apunta el puntero ant del elemento siguiente al nuevo elemento
             }
             *i = e;                         // El puntero inicio apunta para la dirección del nuevo elemento
-/*
+
 // Inserir en el final de la lista
             e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
             e->prox = NULL;                 // El puntero prox apunta a una dirección de memoria nula
@@ -357,7 +367,7 @@ int inse_lista(inicio *i, struct persona p){
                 aux->prox = e;              // Coloca en prox del último elemento el inicio del nuevo elemento
                 e->ant = aux;               // Coloca en ant del nuevo elemento la dirección del elemento anterior
             }
-
+*/
 // Inserir de manera ordenada por edad
             e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
             int t = info_lista(i);          // LLama a la función que retorna el tamaño de la lista
@@ -372,28 +382,28 @@ int inse_lista(inicio *i, struct persona p){
                         *i = e;             // El puntero inicio apunta para la dirección del nuevo elemento
 
                     }else{                  // No es una lista vacía
-                        elem *ante;         // Declara un puntero para apuntar al elemento anterior
+                        elem *anter;        // Declara un puntero para apuntar al elemento anterior
                         elem *actu = *i;    // Declara un puntero que apunta al elemento actual
 
                         // Permanece en el while mientras que el puntero actual sea diferente
                         // de una dirección nula y además mientras que la edad del elemento
                         // actual sea menor que la edad del nuevo elemento
                         while(actu != NULL && actu->datos.edad < p.edad){
-                            ante = actu;    // Al puntero anterior se le atribuye la dirección del actual
+                            anter = actu;   // Al puntero anterior se le atribuye la dirección del actual
                             actu = actu->prox; // A actual se le atribuye la dirección del próximo elemento
                         }
 
                         if(actu == *i){     // Verifica si actual es igual al inicio de la lista
-                            e->ant = NULL;  // Atribuye al puntero an una dirección nula
+                            e->ant = NULL;  // Atribuye al puntero ant una dirección nula
                             (*i)->ant = e;  // Apunta el puntero ant del elemento siguiente al nuevo elemento
                             e->prox = *i;   // Atribuye al puntero prox la dirección a la que apunta inicio
                             *i = e;         // El puntero inicio apunta para la dirección del nuevo elemento
 
                         }else{
-                            e->prox = ante->prox; // El nuevo elemento apunta para el sucesor (Puede ser NULL)
-                            e->ant = ante;  // El puntero ant del nuevo elemento apunta al elemento anterior
-                            ante->prox = e; // El puntero anterior apunta para el nuevo elemento
-                            if(actu != NULL){ // No es el primer elemento a inserir en la lista
+                            e->prox = anter->prox; // El nuevo elemento apunta para el sucesor (Puede ser NULL)
+                            e->ant = anter; // El puntero ant del nuevo elemento apunta al elemento anterior
+                            anter->prox = e; // El puntero anterior apunta para el nuevo elemento
+                            if(actu != NULL){ // No es el último elemento a inserir en la lista
                                 actu->ant = e; // Apunta el puntero ant del elemento siguiente al nuevo elemento
                             }
                         }
@@ -419,30 +429,31 @@ int excl_elem(inicio *i){
         return -1;                   // Retorna indicando error lista no válida
 
     }else{
-        int t = info_lista(i);       // LLama a la función que informa el tamaño de la lista
-        if(t == 0){
+        if((*i) == NULL){            // Verifica si la lista está vacía
             return 0;                // Retorna indicando lista vacía
 
         }else{
             elem *e;                 // Declara un puntero del tipo struct elemento
             e = *i;                  // Le atribuye la dirección de inicio de la lista
-
-// Excluir elemento del inicio de la lista
-            *i = e->prox;            // Coloca como dirección de inicio al segundo elemento de la lista
 /*
-// Excluir elemento del final de la lista
-            elem *ant;               // Declara un puntero para apuntar al elemento anterior
-            while(e->prox != NULL){  // Sale del while cuando prox apunta para una dirección de memoria nula
-                ant = e;             // Coloca en elemento anterior la dirección del elemento actual
-                e = e->prox;         // El puntero apunta al próximo elemento
-            }
-            if(e == *i){             // Verifica si corresponde al primer elemento
-                *i = e->prox;        // Apunta al segundo elemento como dirección de inicio
-
-            }else{                   // Es un elemento intermedio o el último
-                ant->prox = e->prox; // En el elemento antecesor coloca la dirección del sucesor
+// Excluir elemento del inicio de la lista
+            *i = e->prox;            // El inicio apunta para el próximo elemento de la lista
+            if(e->prox != NULL){     // Verifica si tiene mas de un elemento en la lista
+                e->prox->ant = NULL; // Coloca valor nulo en el puntero anterior del elemento siguiente
             }
 */
+// Excluir elemento del final de la lista
+            while(e->prox != NULL){  // Sale del while cuando prox apunta para una dirección de memoria nula
+                e = e->prox;         // El puntero apunta al próximo elemento
+            }
+
+            if(e->ant == NULL){      // Verifica si es el primer y único elemento de la lista
+                *i = e->prox;        // Apunta al segundo elemento como dirección de inicio
+
+            }else{                   // Es el último elemento de la lista
+                e->ant->prox = NULL; // Coloca valor nulo en el puntero anterior del elemento siguiente
+            }
+
             free(e);                 // Libera la memoria que estaba asignada al elemento excluido
             return 1;                // Retorna indicando elemento excluido
         }
@@ -466,23 +477,26 @@ int excl_nomb(char *n, inicio *i){
     }else{
         elem *e;                     // Declara un puntero del tipo struct elemento
         e = *i;                      // Le atribuye la dirección de inicio de la lista
-        elem *ant;                   // Declara un puntero para apuntar al elemento anterior
 
         // Se mantiene en el while hasta llegar al final de
         // la lista o hasta encontrar el nombre solicitado
         while(e != NULL && strcmp(n, e->datos.nombre) != 0){
-            ant = e;                 // Coloca en elemento anterior la dirección del elemento actual
             e = e->prox;             // El puntero apunta al próximo elemento
         }
+
         if(e == NULL){               // El puntero apunta a una dirección de memoria nula
             return 0;                // Retorna indicando nombre no encontrado
 
         }else{
-            if(e == *i){             // Verifica si corresponde al primer elemento
+            if(e->ant == NULL){      // Verifica si es el primer y único elemento de la lista
                 *i = e->prox;        // Apunta al segundo elemento como dirección de inicio
 
             }else{                   // Es un elemento intermedio o el último
-                ant->prox = e->prox; // En el elemento antecesor coloca la dirección del sucesor
+                e->ant->prox = e->prox; // Coloca el valor de prox en el prox del elemento anterior
+
+                if(e->prox != NULL){ // Es un elemento intermedio
+                    e->prox->ant = e->ant; // Coloca el valor de ant en el ant del elemento anterior
+                }
             }
             free(e);                 // Libera la memoria que estaba asignada al elemento excluido
             return 1;                // Retorna indicando elemento excluido
@@ -585,13 +599,17 @@ void pres_lista(inicio *i){
 
 
 
-// Función del tipo void que elimina la lista (Libera la memoria asignada)
+// Función del tipo int que elimina la lista (Libera la memoria asignada)
 // Parámetros:
 //    *i = Puntero con la dirección de memoria donde inicia la lista
 // Retorna:
-//    Nada
-void elim_lista(inicio *i){
-    if(i != NULL){           // Verifica que sea una lista válida
+//     0 = Error con la lista
+//     1 = Lista eliminada
+int elim_lista(inicio *i){
+    if(i == NULL){           // Verifica si es una lista válida
+        return 0;            // Retorna indicando error
+
+    }else{
         elem *e;             // Declara un puntero auxiliar del tipo struct elemento
 
         // Se mantiene en el while mientras la dirección
@@ -601,6 +619,8 @@ void elim_lista(inicio *i){
             *i = (*i)->prox; // Apunta el inicio para la dirección del elemento siguiente
             free(e);         // Elimina primer elemento (Ahora el primero es el siguiente)
         }
+
         free(i);             // Elimina la cabeza de la lista
+        return 1;            // Retorna indicando lista eliminada
     }
 }
