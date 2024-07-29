@@ -183,17 +183,17 @@ int main(){
 
                     }else{
                         struct persona busNum; // Variable del tipo estructura persona
-                        printf("Ingrese el numero de elemento a buscar:  ");
+                        printf("\nIngrese el numero de elemento a buscar:  ");
                         scanf("%d", &eleme);
                         retor = cons_elem(eleme, lis, &busNum); // LLama a la función búsqueda por elemento
                         if(retor == -1){
-                            printf("Se produjo un error\n\n");
+                            printf("\nSe produjo un error\n\n");
                             exit(1);
                         }else{
                             if(retor == 0){
-                                printf("El elemento %d no es valido\n\n", eleme);
+                                printf("\nEl elemento %d no es valido\n\n", eleme);
                             }else{
-                                printf("Elemento %d =  Nombre: %s  ---  Edad: %d\n\n", eleme, busNum.nombre, busNum.edad);
+                                printf("\nElemento %d =  Nombre: %s  ---  Edad: %d\n\n", eleme, busNum.nombre, busNum.edad);
                             }
                         }
                     }
@@ -469,7 +469,7 @@ int cons_elem(int e, lista *x, struct persona *p){
 
 // Función del tipo int que realiza la consulta por nombre en la lista
 // Parámetros:
-//     e = Nombre a buscar
+//    *n = Nombre a buscar
 //    *x = Puntero con la dirección de memoria donde inicia la lista
 //    *p = Puntero del tipo estructura persona
 // Retorna:
