@@ -341,9 +341,9 @@ int inse_lista(inicio *i, struct persona p){
             return 0;                       // Retorna el código de memoria insuficiente
 
         }else{
-/*
-// Inserir en el inicio de la lista
             e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
+
+// Inserir en el inicio de la lista
             e->prox = *i;                   // Atribuye al puntero prox la dirección a la que apunta inicio
             e->ant = NULL;                  // El puntero ant del elemento apunta a una dirección nula
             if(*i != NULL){                 // No es el primer elemento a inserir en la lista
@@ -352,7 +352,6 @@ int inse_lista(inicio *i, struct persona p){
             *i = e;                         // El puntero inicio apunta para la dirección del nuevo elemento
 
 // Inserir en el final de la lista
-            e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
             e->prox = NULL;                 // El puntero prox apunta a una dirección de memoria nula
             if(*i == NULL){                 // Es una lista vacía
                 e->ant = NULL;              // El puntero ant del elemento apunta a una dirección nula
@@ -362,14 +361,13 @@ int inse_lista(inicio *i, struct persona p){
                 elem *aux;                  // Declara un puntero auxiliar del tipo struct elemento
                 aux = *i;                   // Atribuye la dirección de inicio al puntero auxiliar
                 while(aux->prox != NULL){   // Permanece en el while mientras que prox sea diferente de NULL
-                    aux = aux->prox;        // Carga en auz el inicio del próximo elemento
+                    aux = aux->prox;        // Carga en aux el inicio del próximo elemento
                 }
                 aux->prox = e;              // Coloca en prox del último elemento el inicio del nuevo elemento
                 e->ant = aux;               // Coloca en ant del nuevo elemento la dirección del elemento anterior
             }
-*/
+
 // Inserir de manera ordenada por edad
-            e->datos = p;                   // Insiere los datos en el espacio de memoria asignado
             int t = info_lista(i);          // LLama a la función que retorna el tamaño de la lista
             if(t == -1){
                     printf("\nSe produjo un error\n\n");
@@ -382,34 +380,34 @@ int inse_lista(inicio *i, struct persona p){
                         *i = e;             // El puntero inicio apunta para la dirección del nuevo elemento
 
                     }else{                  // No es una lista vacía
-                        elem *anter;        // Declara un puntero para apuntar al elemento anterior
-                        elem *actu = *i;    // Declara un puntero que apunta al elemento actual
+                        elem *eleAnte;      // Declara un puntero para apuntar al elemento anterior
+                        elem *eleActu= *i;  // Declara un puntero que apunta al elemento actual
 
                         // Permanece en el while mientras que el puntero actual sea diferente
                         // de una dirección nula y además mientras que la edad del elemento
                         // actual sea menor que la edad del nuevo elemento
-                        while(actu != NULL && actu->datos.edad < p.edad){
-                            anter = actu;   // Al puntero anterior se le atribuye la dirección del actual
-                            actu = actu->prox; // A actual se le atribuye la dirección del próximo elemento
+                        while(eleActu != NULL && eleActu->datos.edad < p.edad){
+                            eleAnte = eleActu;   // Al puntero anterior se le atribuye la dirección del actual
+                            eleActu = eleActu->prox; // A actual se le atribuye la dirección del próximo elemento
                         }
 
-                        if(actu == *i){     // Verifica si actual es igual al inicio de la lista
+                        if(eleActu == *i){  // El elemento actual apunta al inicio de la lista
                             e->ant = NULL;  // Atribuye al puntero ant una dirección nula
                             (*i)->ant = e;  // Apunta el puntero ant del elemento siguiente al nuevo elemento
                             e->prox = *i;   // Atribuye al puntero prox la dirección a la que apunta inicio
                             *i = e;         // El puntero inicio apunta para la dirección del nuevo elemento
 
-                        }else{
-                            e->prox = anter->prox; // El nuevo elemento apunta para el sucesor (Puede ser NULL)
-                            e->ant = anter; // El puntero ant del nuevo elemento apunta al elemento anterior
-                            anter->prox = e; // El puntero anterior apunta para el nuevo elemento
-                            if(actu != NULL){ // No es el último elemento a inserir en la lista
-                                actu->ant = e; // Apunta el puntero ant del elemento siguiente al nuevo elemento
+                        }else{                    // El elemento actual apunta a una posición intermedia
+                            e->prox = eleAnte->prox; // El nuevo elemento apunta para el sucesor
+                            e->ant = eleAnte;     // El puntero ant del nuevo elemento apunta al elemento anterior
+                            eleAnte->prox = e;    // El puntero anterior apunta para el nuevo elemento
+                            if(eleActu != NULL){  // No es el último elemento a inserir en la lista
+                                eleActu->ant = e; // Apunta el puntero ant del elemento siguiente al nuevo elemento
                             }
                         }
                     }
                 }
-*/
+
             return 1;                       // Retorna indicando inserción realizada correctamente
         }
     }
@@ -435,13 +433,13 @@ int excl_elem(inicio *i){
         }else{
             elem *e;                 // Declara un puntero del tipo struct elemento
             e = *i;                  // Le atribuye la dirección de inicio de la lista
-/*
+
 // Excluir elemento del inicio de la lista
             *i = e->prox;            // El inicio apunta para el próximo elemento de la lista
             if(e->prox != NULL){     // Verifica si tiene mas de un elemento en la lista
                 e->prox->ant = NULL; // Coloca valor nulo en el puntero anterior del elemento siguiente
             }
-*/
+
 // Excluir elemento del final de la lista
             while(e->prox != NULL){  // Sale del while cuando prox apunta para una dirección de memoria nula
                 e = e->prox;         // El puntero apunta al próximo elemento
